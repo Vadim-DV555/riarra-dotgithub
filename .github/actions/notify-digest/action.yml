@@ -16,7 +16,7 @@ runs:
   using: composite
   steps:
     - id: quiet
-      uses: riarra/.github/.github/actions/quiet-hours@main
+      uses: Vadim-DV555/riarra-dotgithub/.github/actions/quiet-hours@main
 
     - shell: bash
       env:

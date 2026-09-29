@@ -16,7 +16,7 @@ jobs:
       pull-requests: read
       issues: read
     steps:
-      - uses: riarra/.github/.github/actions/notify-digest@main
+      - uses: Vadim-DV555/riarra-dotgithub/.github/actions/notify-digest@main
         with:
           bot-token: ${{ secrets.NOTIFY_BOT_TOKEN }}
           chat-id: ${{ secrets.NOTIFY_CHAT_ID }}

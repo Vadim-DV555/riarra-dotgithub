@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Quiet hours
         id: quiet
-        uses: riarra/.github/.github/actions/quiet-hours@main
+        uses: Vadim-DV555/riarra-dotgithub/.github/actions/quiet-hours@main
 
       - name: Send Telegram notification
         if: steps.quiet.outputs.quiet != 'true'

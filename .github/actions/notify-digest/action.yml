@@ -1,0 +1,30 @@
+name: Notify digest
+description: Утренняя сводка в Telegram за тихие часы (PR, коммиты в основную ветку, задачи).
+
+inputs:
+  bot-token:
+    description: NOTIFY_BOT_TOKEN
+    required: false
+  chat-id:
+    description: NOTIFY_CHAT_ID
+    required: false
+  github-token:
+    description: Токен с чтением PR, коммитов и задач репозитория
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: quiet
+      uses: riarra/.github/.github/actions/quiet-hours@main
+
+    - shell: bash
+      env:
+        REPO: ${{ github.repository }}
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch || 'main' }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        BOT_TOKEN: ${{ inputs.bot-token }}
+        CHAT_ID: ${{ inputs.chat-id }}
+        SINCE: ${{ steps.quiet.outputs.since }}
+        UNTIL: ${{ steps.quiet.outputs.until }}
+      run: python3 "$GITHUB_ACTION_PATH/digest.py"

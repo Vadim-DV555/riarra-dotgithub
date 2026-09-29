@@ -1,0 +1,22 @@
+name: Quiet hours
+description: >
+  Тихие часы уведомлений в Telegram (23:00–08:00 МСК). Ночью события не шлются,
+  утром их собирает _notify-digest. Границы окна — только в quiet_hours.py.
+
+outputs:
+  quiet:
+    description: "true — сейчас тихие часы"
+    value: ${{ steps.calc.outputs.quiet }}
+  since:
+    description: "Начало последнего окна тишины, ISO 8601 UTC"
+    value: ${{ steps.calc.outputs.since }}
+  until:
+    description: "Конец последнего окна тишины, ISO 8601 UTC"
+    value: ${{ steps.calc.outputs.until }}
+
+runs:
+  using: composite
+  steps:
+    - id: calc
+      shell: bash
+      run: python3 "$GITHUB_ACTION_PATH/quiet_hours.py"

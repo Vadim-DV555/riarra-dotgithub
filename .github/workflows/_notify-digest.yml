@@ -1,0 +1,23 @@
+name: Notify Telegram digest after quiet hours (reusable)
+
+on:
+  workflow_call:
+    secrets:
+      NOTIFY_BOT_TOKEN:
+        required: false
+      NOTIFY_CHAT_ID:
+        required: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - uses: riarra/.github/.github/actions/notify-digest@main
+        with:
+          bot-token: ${{ secrets.NOTIFY_BOT_TOKEN }}
+          chat-id: ${{ secrets.NOTIFY_CHAT_ID }}
+          github-token: ${{ github.token }}

@@ -12,7 +12,12 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Quiet hours
+        id: quiet
+        uses: riarra/.github/.github/actions/quiet-hours@main
+
       - name: Send Telegram notification
+        if: steps.quiet.outputs.quiet != 'true'
         env:
           BOT_TOKEN: ${{ secrets.NOTIFY_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.NOTIFY_CHAT_ID }}
